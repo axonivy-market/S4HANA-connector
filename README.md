@@ -4,4 +4,4 @@
 
 "SAP 4 HANA REST"
 
-Read our [documentation](MY-PRODUCT-NAME-product/README.md).
+Read our [documentation](S4HANA-product/README.md).
