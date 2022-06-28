@@ -1,11 +1,11 @@
-# MY-PRODUCT-NAME
+# S4HANA
 
-YOUR DESCRIPTION GOES HERE
+SAP4 HANA REST Connector
 
 ## Demo
 
-YOUR DEMO DESCRIPTION GOES HERE
+Demo tries to connect to SAP and gets list of business partners
 
 ## Setup
 
-YOUR SETUP DESCRIPTION GOES HERE
+Please set the global variables to the SAP needs. Maybe you need to add a certificate to connect to SAP via SSL.
