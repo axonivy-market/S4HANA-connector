@@ -1,0 +1,5 @@
+getHANAData #class
+com.axon.market.s4.hana #namespace
+businessPartnerRequest hana.bo.BusinessPartnerRequest #field
+businessPartners List<localhost.service_root.client.APIBUSINESSPARTNERABusinessPartnerType> #field
+messages List<hana.bo.Message> #field
