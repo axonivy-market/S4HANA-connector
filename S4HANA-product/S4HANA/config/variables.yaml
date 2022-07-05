@@ -7,3 +7,4 @@
 #
 Variables:
 #  myVariable: value
+  HANA_BUSINESS_PARTNER_URL: SAP123

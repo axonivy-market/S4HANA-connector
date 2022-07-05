@@ -12,10 +12,10 @@ gA0 @TextInP .responsibility .responsibility #zField
 gA0 @StartSub f0 '' #zField
 gA0 @EndSub f1 '' #zField
 gA0 @RestClientCall f3 '' #zField
-gA0 @PushWFArc f4 '' #zField
 gA0 @PushWFArc f2 '' #zField
 gA0 @ErrorBoundaryEvent f5 '' #zField
 gA0 @PushWFArc f6 '' #zField
+gA0 @PushWFArc f4 '' #zField
 >Proto gA0 gA0 getHANA #zField
 gA0 f0 inParamDecl '<hana.bo.BusinessPartnerRequest request> param;' #txt
 gA0 f0 inParamTable 'out.businessPartnerRequest=param.request;
@@ -32,12 +32,14 @@ gA0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-gA0 f0 81 49 30 30 -76 15 #rect
-gA0 f1 465 49 30 30 0 15 #rect
+gA0 f0 81 49 30 30 -78 17 #rect
+gA0 f1 545 49 30 30 0 15 #rect
 gA0 f3 clientId 66c119a8-9209-4da5-814d-650f3c5a6c17 #txt
 gA0 f3 path A_BusinessPartner #txt
 gA0 f3 queryParams '%24filter=hana.url.URLBusinessPartnerService.generateURLFilter(in.businessPartnerRequest);
 %24format="json";
+' #txt
+gA0 f3 templateParams 'URI=ivy.var.get("HANA_BUSINESS_PARTNER_URL");
 ' #txt
 gA0 f3 method JAX_RS #txt
 gA0 f3 clientCode 'import localhost.service_root.client.CollectionOfABusinessPartnerType;
@@ -58,6 +60,8 @@ Postman postman = Postman.build()
 	.withTarget(client)
 	.withS4Headers(in.businessPartnerRequest.sapClient);
 	
+ivy.log.info("URI:"+client.getUri().getHost()+"|URI Port:"+client.getUri().getPort()+"|URI Path:"+client.getUri().getPath());
+
 // execute request
 Response response = postman.get();
 
@@ -76,24 +80,24 @@ gA0 f3 responseCode '/* empty due to JAX-RS request+response handling  */' #txt
 gA0 f3 clientErrorCode ivy:error:rest:client #txt
 gA0 f3 statusErrorCode ivy:error:rest:client #txt
 gA0 f3 296 42 112 44 0 -8 #rect
-gA0 f4 111 64 296 64 #arcP
-gA0 f2 408 64 465 64 #arcP
+gA0 f2 408 64 545 64 #arcP
 gA0 f5 actionTable 'out=in;
 out.messages=hana.converter.MessageConverter.convertToMessages(error);
 ' #txt
 gA0 f5 attachedToRef 181AFD80906674FB-f3 #txt
 gA0 f5 369 81 30 30 0 15 #rect
-gA0 f6 399 96 465 64 #arcP
-gA0 f6 1 416 96 #addKink
-gA0 f6 2 432 64 #addKink
-gA0 f6 1 0.774026969403047 0 0 #arcLabel
+gA0 f6 399 96 545 64 #arcP
+gA0 f6 1 496 96 #addKink
+gA0 f6 2 512 64 #addKink
+gA0 f6 1 0.7593949905686715 0 0 #arcLabel
+gA0 f4 111 64 296 64 #arcP
 >Proto gA0 .type com.axon.market.s4.hana.getHANAData #txt
 >Proto gA0 .processKind CALLABLE_SUB #txt
 >Proto gA0 0 0 32 24 18 0 #rect
 >Proto gA0 @|BIcon #fIcon
-gA0 f0 mainOut f4 tail #connect
-gA0 f4 head f3 mainIn #connect
 gA0 f3 mainOut f2 tail #connect
 gA0 f2 head f1 mainIn #connect
 gA0 f5 mainOut f6 tail #connect
 gA0 f6 head f1 mainIn #connect
+gA0 f0 mainOut f4 tail #connect
+gA0 f4 head f3 mainIn #connect
