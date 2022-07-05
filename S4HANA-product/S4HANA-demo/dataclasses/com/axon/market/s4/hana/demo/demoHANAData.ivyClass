@@ -1,2 +1,3 @@
 demoHANAData #class
 com.axon.market.s4.hana.demo #namespace
+businessPartners List<localhost.service_root.client.APIBUSINESSPARTNERABusinessPartnerType> #field
