@@ -9,8 +9,8 @@
   <dependencies>
     <dependency>
       <groupId>com.axon.market</groupId>
-      <artifactId>s4-hana</artifactId>
-      <version>${project.version}</version>
+      <artifactId>s4-hana-connector</artifactId>
+      <version>[9.3.4-SNAPSHOT,)</version>
       <type>iar</type>
     </dependency>
   </dependencies>
