@@ -5,8 +5,8 @@
       "data": {
         "projects": [
           {
-            "groupId": "MY-GROUP-ID",
-            "artifactId": "MY-PRODUCT-NAME-demo",
+            "groupId": "com.axon.market",
+            "artifactId": "s4-hana-demo",
             "version": "${version}",
             "type": "iar"
           }
@@ -27,8 +27,8 @@
       "data": {
         "dependencies": [
           {
-            "groupId": "MY-GROUP-ID",
-            "artifactId": "MY-PRODUCT-NAME",
+            "groupId": "com.axon.market",
+            "artifactId": "s4-hana-connector",
             "version": "${version}",
             "type": "iar"
           }
