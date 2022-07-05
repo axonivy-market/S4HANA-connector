@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.axonivy.market</groupId>
-  <name>s4hana</name>
-  <artifactId>s4hana-modules</artifactId>
+  <name>S4HANA</name>
+  <artifactId>s4-hana-modules</artifactId>
   <version>9.3.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
