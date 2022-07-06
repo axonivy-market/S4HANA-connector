@@ -5,7 +5,7 @@
       "data": {
         "projects": [
           {
-            "groupId": "com.axon.market",
+            "groupId": "com.axonivy.connector.s4hana",
             "artifactId": "s4-hana-demo",
             "version": "${version}",
             "type": "iar"
@@ -27,7 +27,7 @@
       "data": {
         "dependencies": [
           {
-            "groupId": "com.axon.market",
+            "groupId": "com.axonivy.connector.s4hana",
             "artifactId": "s4-hana-connector",
             "version": "${version}",
             "type": "iar"

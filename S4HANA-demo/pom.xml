@@ -2,15 +2,15 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.axon.market</groupId>
+  <groupId>com.axonivy.connector.s4hana</groupId>
   <artifactId>s4-hana-demo</artifactId>
   <version>9.3.4-SNAPSHOT</version>
   <packaging>iar</packaging>
   <dependencies>
     <dependency>
-      <groupId>com.axon.market</groupId>
+      <groupId>com.axonivy.connector.s4hana</groupId>
       <artifactId>s4-hana-connector</artifactId>
-      <version>[9.3.4-SNAPSHOT,)</version>
+      <version>${project.version}</version>
       <type>iar</type>
     </dependency>
   </dependencies>
