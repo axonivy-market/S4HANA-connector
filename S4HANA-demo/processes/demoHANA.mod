@@ -36,7 +36,7 @@ dA0 f0 81 49 30 30 -20 17 #rect
 dA0 f1 513 49 30 30 0 15 #rect
 dA0 f3 processCall getHANA:getBusinessPartners(hana.bo.BusinessPartnerRequest) #txt
 dA0 f3 requestActionDecl '<hana.bo.BusinessPartnerRequest request> param;' #txt
-dA0 f3 requestMappingAction 'param.request.sapClient=0;
+dA0 f3 requestMappingAction 'param.request.sapClient=200;
 ' #txt
 dA0 f3 responseMappingAction 'out=in;
 out.businessPartners=in.businessPartners;
