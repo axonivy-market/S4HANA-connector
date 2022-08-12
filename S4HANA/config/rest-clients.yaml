@@ -7,3 +7,14 @@ RestClients:
     - ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature
     Properties:
       JSON.Deserialization.FAIL_ON_UNKNOWN_PROPERTIES: 'false'
+  HANA_BUSINESS_PARTNER_ (Service for namespace API_BUSINESS_PARTNER):
+    UUID: 319c4c35-df80-4f51-b63e-ade0e8f60a9a
+    Url: https://{URI}/sap/opu/odata/SAP/API_BUSINESS_PARTNER
+    Features:
+    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
+    - ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature
+    Properties:
+      JSON.Deserialization.FAIL_ON_UNKNOWN_PROPERTIES: 'false'
+    OpenAPI:
+      SpecUrl: file:///C:/Users/hb/git/S4HANA/S4HANA/lib/generated/rest/openapi.json
+      Namespace: com.axon.market.s4hana.client
