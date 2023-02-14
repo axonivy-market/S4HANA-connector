@@ -12,7 +12,7 @@ public class Postman {
 	private static Postman postman;
 	private Invocation.Builder request;
 	private static final String CONNECT_TIMEOUT_PROPERTY = "jersey.config.client.connectTimeout";
-	private static final int CONNECT_TIMEOUT_VALUE = 30000;
+	public static final int CONNECT_TIMEOUT_VALUE = 30000;
 
 	public static Postman build() {
 
