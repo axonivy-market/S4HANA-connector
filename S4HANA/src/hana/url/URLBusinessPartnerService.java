@@ -12,6 +12,7 @@ public class URLBusinessPartnerService {
 	public static final String BUSINESS_PARTNER_CATEGORY = "BusinessPartnerCategory";
 	public static final String BUSINESS_PARTNER_GROUPING = "BusinessPartnerGrouping";
 	public static final String CREATION_DATE = "CreationDate";
+	public static final int CONNECT_TIMEOUT_VALUE = 30000;
 
 	public static String generateURLFilter(final BusinessPartnerRequest contractSearch) {
 		if (Objects.isNull(contractSearch)) {

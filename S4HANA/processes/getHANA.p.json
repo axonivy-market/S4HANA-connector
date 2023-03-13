@@ -6,115 +6,6 @@
     "data" : "com.axon.market.s4.hana.getHANAData"
   },
   "elements" : [ {
-      "id" : "f0",
-      "type" : "CallSubStart",
-      "name" : "getBusinessPartners(BusinessPartnerRequest)",
-      "config" : {
-        "callSignature" : "getBusinessPartners",
-        "input" : {
-          "params" : [
-            { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest" }
-          ],
-          "map" : {
-            "out.businessPartnerRequest" : "param.request"
-          }
-        },
-        "result" : {
-          "params" : [
-            { "name" : "businessPartners", "type" : "List<localhost.service_root.client.APIBUSINESSPARTNERABusinessPartnerType>" }
-          ],
-          "map" : {
-            "result.businessPartners" : "in.businessPartners"
-          }
-        },
-        "tags" : "connector"
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 64 },
-        "labelOffset" : { "x" : 62, "y" : 37 }
-      },
-      "connect" : { "id" : "f4", "to" : "f3" }
-    }, {
-      "id" : "f1",
-      "type" : "CallSubEnd",
-      "visual" : {
-        "at" : { "x" : 560, "y" : 64 }
-      }
-    }, {
-      "id" : "f3",
-      "type" : "RestClientCall",
-      "config" : {
-        "path" : "A_BusinessPartner",
-        "clientId" : "66c119a8-9209-4da5-814d-650f3c5a6c17",
-        "clientErrorCode" : "ivy:error:rest:client",
-        "method" : "JAX_RS",
-        "queryParams" : {
-          "%24filter" : "hana.url.URLBusinessPartnerService.generateURLFilter(in.businessPartnerRequest)",
-          "%24format" : "\"json\""
-        },
-        "statusErrorCode" : "ivy:error:rest:client",
-        "clientCode" : [
-          "import localhost.service_root.client.CollectionOfABusinessPartnerType;",
-          "import hana.converter.MessageConverter;",
-          "import hana.utils.JsonUtils;",
-          "import hana.utils.HttpStatusUtils;",
-          "import ch.ivyteam.ivy.bpm.error.BpmError;",
-          "import com.fasterxml.jackson.databind.JsonNode;",
-          "import javax.ws.rs.core.Response;",
-          "import hana.utils.Postman;",
-          "import hana.converter.MessageConverter;",
-          "import org.apache.http.HttpStatus;",
-          "import Postman;",
-          "import HttpStatusUtils;",
-          "",
-          "// prepare client and request, set headers",
-          "Postman postman = Postman.build()",
-          "  .withTarget(client)",
-          "  .withS4Headers(in.businessPartnerRequest.sapClient);",
-          "  ",
-          "//ivy.log.info(\"URI:\"+client.getUri().getHost()+\"|URI Port:\"+client.getUri().getPort()+\"|URI Path:\"+client.getUri().getPath());",
-          "",
-          "// execute request",
-          "Response response = postman.get();",
-          "",
-          "// handle response",
-          "if(HttpStatusUtils.isSuccess(response)){",
-          "  JsonNode node = response.readEntity(JsonNode.class) as JsonNode;",
-          "  CollectionOfABusinessPartnerType collection = JsonUtils.jsonToObject(node.get(\"d\").toString(), CollectionOfABusinessPartnerType.class) as CollectionOfABusinessPartnerType;",
-          "  in.businessPartners = collection.results;",
-          "} else if(HttpStatusUtils.isClientError(response) || HttpStatusUtils.isServerError(response)){",
-          "  in.messages = MessageConverter.convertBadRequestMessages(response);",
-          "} else{",
-          "  BpmError.create(\"ivy:error:rest:client\").throwError();",
-          "}"
-        ],
-        "templateParams" : {
-          "URI" : "ivy.var.get(\"HANA_BUSINESS_PARTNER_URL\")"
-        },
-        "resultType" : "List<hana.bo.BusinessPartner>",
-        "responseCode" : "/* empty due to JAX-RS request+response handling  */"
-      },
-      "visual" : {
-        "at" : { "x" : 352, "y" : 64 }
-      },
-      "boundaries" : [ {
-          "id" : "f5",
-          "type" : "ErrorBoundaryEvent",
-          "config" : {
-            "output" : {
-              "map" : {
-                "out" : "in",
-                "out.messages" : "hana.converter.MessageConverter.convertToMessages(error)"
-              }
-            }
-          },
-          "visual" : {
-            "at" : { "x" : 384, "y" : 96 }
-          },
-          "connect" : { "id" : "f6", "to" : "f1", "via" : [ { "x" : 496, "y" : 96 }, { "x" : 512, "y" : 64 } ] }
-        } ],
-      "connect" : { "id" : "f2", "to" : "f1" }
-    }, {
       "id" : "f7",
       "type" : "RestClientCall",
       "config" : {
@@ -127,24 +18,24 @@
         "clientErrorCode" : "ivy:error:rest:client",
         "method" : "GET",
         "queryParams" : {
-          "$top" : "",
-          "$skip" : "",
+          "$top" : "in.businessPartnerRequest.query.topCount",
+          "$skip" : "in.businessPartnerRequest.query.skipFirstCount",
           "$filter" : "hana.url.URLBusinessPartnerService.generateURLFilter(in.businessPartnerRequest)",
-          "$inlinecount" : "",
-          "$orderby" : "",
-          "$select" : "",
-          "$expand" : ""
+          "$inlinecount" : "\"allpages\"",
+          "$orderby" : "in.businessPartnerRequest.query.orderBy",
+          "$select" : "in.businessPartnerRequest.query.select",
+          "$expand" : "in.businessPartnerRequest.query.expand"
         },
         "statusErrorCode" : "ivy:error:rest:client",
         "responseMapping" : {
           "out.businessPartners" : "result.d.results as List"
         },
         "templateParams" : {
-          "URI" : "ivy.var.get(\"HANA_BUSINESS_PARTNER_URL\")"
+          "URI" : "in.uriPath"
         },
         "resultType" : "com.axon.market.s4hana.client.Wrapper9",
         "properties" : {
-          "jersey.config.client.connectTimeout" : "hana.utils.Postman.CONNECT_TIMEOUT_VALUE"
+          "jersey.config.client.connectTimeout" : "hana.url.URLBusinessPartnerService.CONNECT_TIMEOUT_VALUE"
         }
       },
       "visual" : {
@@ -172,13 +63,22 @@
       "type" : "CallSubStart",
       "name" : "getBusinessPartners(BusinessPartnerRequest)",
       "config" : {
-        "callSignature" : "getBusinessPartners_",
+        "callSignature" : "getBusinessPartners",
         "input" : {
           "params" : [
             { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest" }
           ],
           "map" : {
-            "out.businessPartnerRequest" : "param.request"
+            "out.businessPartnerRequest" : "param.request",
+            "out.uriPath" : "ivy.var.SAP4HANA_CONNECTOR_URL"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "businessPartners", "type" : "java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>" }
+          ],
+          "map" : {
+            "result.businessPartners" : "in.businessPartners"
           }
         }
       },

@@ -1,12 +1,4 @@
 RestClients:
-  HANA_BUSINESS_PARTNER:
-    UUID: 66c119a8-9209-4da5-814d-650f3c5a6c17
-    Url: https://{URI}/sap/opu/odata/SAP/API_BUSINESS_PARTNER
-    Features:
-    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
-    - ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature
-    Properties:
-      JSON.Deserialization.FAIL_ON_UNKNOWN_PROPERTIES: 'false'
   HANA_BUSINESS_PARTNER_ (Service for namespace API_BUSINESS_PARTNER):
     UUID: 319c4c35-df80-4f51-b63e-ade0e8f60a9a
     Url: https://{URI}/sap/opu/odata/SAP/API_BUSINESS_PARTNER

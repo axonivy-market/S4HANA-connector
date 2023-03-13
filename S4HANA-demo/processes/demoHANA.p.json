@@ -5,78 +5,34 @@
     "data" : "com.axon.market.s4.hana.demo.demoHANAData"
   },
   "elements" : [ {
-      "id" : "f0",
-      "type" : "RequestStart",
-      "name" : "start.ivp",
-      "config" : {
-        "callSignature" : "start",
-        "outLink" : "start.ivp",
-        "tags" : "demo"
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 64 },
-        "labelOffset" : { "x" : 9, "y" : 37 }
-      },
-      "connect" : { "id" : "f4", "to" : "f3" }
-    }, {
-      "id" : "f1",
-      "type" : "TaskEnd",
-      "visual" : {
-        "at" : { "x" : 528, "y" : 64 }
-      }
-    }, {
-      "id" : "f3",
-      "type" : "SubProcessCall",
-      "name" : "getBusinessPartners",
-      "config" : {
-        "processCall" : "getHANA:getBusinessPartners(hana.bo.BusinessPartnerRequest)",
-        "output" : {
-          "map" : {
-            "out" : "in",
-            "out.businessPartners" : "in.businessPartners"
-          }
-        },
-        "call" : {
-          "params" : [
-            { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest" }
-          ],
-          "map" : {
-            "param.request.sapClient" : "200"
-          }
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 224, "y" : 64 },
-        "size" : { "width" : 128, "height" : 60 }
-      },
-      "connect" : { "id" : "f6", "to" : "f5" }
-    }, {
-      "id" : "f5",
-      "type" : "Script",
-      "name" : "Log BusinessPartners",
-      "config" : {
-        "output" : {
-          "code" : [
-            "for (int i=0;i<in.businessPartners.size();i++) {",
-            "  ivy.log.info(\"BusinessPartners(\"+i+\"):\"+in.businessPartners.get(i).getBusinessPartnerFullName());",
-            "}"
-          ]
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 400, "y" : 64 },
-        "size" : { "width" : 128, "height" : 60 }
-      },
-      "connect" : { "id" : "f2", "to" : "f1" }
-    }, {
       "id" : "f7",
       "type" : "Script",
       "name" : "Log BusinessPartners",
       "config" : {
         "output" : {
           "code" : [
-            "for (int i=0;i<in.businessPartners.size();i++) {",
-            "  ivy.log.info(\"BusinessPartners(\"+i+\"):\"+in.businessPartners.get(i).getBusinessPartnerFullName());",
+            "import java.util.Arrays;",
+            "import com.axon.market.s4hana.client.APIBUSINESSPARTNERAAddressEmailAddressType;",
+            "import com.axon.market.s4hana.client.APIBUSINESSPARTNERABPContactToAddressTypeToEmailAddress;",
+            "import com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerAddressType;",
+            "import com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType;",
+            "int i =0;",
+            "for (APIBUSINESSPARTNERABusinessPartnerType bp: in.businessPartners) {",
+            "  ivy.log.info(\"BusinessPartners(\"+i+\"):{0}\",String.join(\",\", Arrays.asList(bp.getBusinessPartnerFullName() , bp.getBusinessPartnerCategory() , bp.getBusinessPartnerGrouping() )));",
+            "  for (APIBUSINESSPARTNERABusinessPartnerAddressType add: bp.toBusinessPartnerAddress.results) {",
+            "",
+            "    ivy.log.info(\"  Address {0}\",add.cityName);",
+            "    if (add.toEmailAddress.results.isEmpty()){     ivy.log.info(\"  empty email \");}",
+            "    for (APIBUSINESSPARTNERABPContactToAddressTypeToEmailAddress em: add.toEmailAddress.results) {",
+            " ",
+            "     for (APIBUSINESSPARTNERAAddressEmailAddressType email: em.results) {",
+            "        ivy.log.info(\"    email {0}\",(email.emailAddress));",
+            "      }",
+            "     }",
+            "  ",
+            "  }",
+            "  i++;",
+            "  ",
             "}"
           ]
         }
@@ -89,15 +45,15 @@
     }, {
       "id" : "f8",
       "type" : "RequestStart",
-      "name" : "start2.ivp",
+      "name" : "getBusinessPartnersWithEmailAndBank.ivp",
       "config" : {
-        "callSignature" : "start2",
-        "outLink" : "start2.ivp",
+        "callSignature" : "getBusinessPartnersWithEmailAndBank",
+        "outLink" : "getBusinessPartnersWithEmailAndBank.ivp",
         "tags" : "demo"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 160 },
-        "labelOffset" : { "x" : 9, "y" : 37 }
+        "labelOffset" : { "x" : 57, "y" : 73 }
       },
       "connect" : { "id" : "f13", "to" : "f9" }
     }, {
@@ -105,11 +61,11 @@
       "type" : "SubProcessCall",
       "name" : "getBusinessPartners",
       "config" : {
-        "processCall" : "getHANA:getBusinessPartners_(hana.bo.BusinessPartnerRequest)",
+        "processCall" : "getHANA:getBusinessPartners(hana.bo.BusinessPartnerRequest)",
         "output" : {
           "map" : {
             "out" : "in",
-            "out.businessPartners" : "in.businessPartners"
+            "out.businessPartners" : "result.businessPartners"
           }
         },
         "call" : {
@@ -117,6 +73,7 @@
             { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest" }
           ],
           "map" : {
+            "param.request.query.expand" : "[\"to_BusinessPartnerAddress/to_EmailAddress\",\"to_BusinessPartnerBank\",\"to_BuPaIdentification\",\"to_BusinessPartnerContact\",\"to_BusinessPartnerRole\",\"to_Customer\",\"to_Supplier\"]",
             "param.request.sapClient" : "200"
           }
         }
