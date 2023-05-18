@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.axonivy.connector.s4hana</groupId>
   <artifactId>s4-hana-connector</artifactId>
-  <version>9.3.4-SNAPSHOT</version>
+  <version>10.00-SNAPSHOT</version>
   <packaging>iar</packaging>
   <build>
     <plugins>
