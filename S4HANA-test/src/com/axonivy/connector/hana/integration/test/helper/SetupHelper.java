@@ -23,7 +23,6 @@ public class SetupHelper {
         }
       }
     }
-//    Ivy.var().set(HANA_URL_PROP, hanaUrl);
-    fixture.var(HANA_URL_PROP, "odata-mock-server-daring-emu.cfapps.eu10.hana.ondemand.com");//TODO @PDR find a better online source for mock service
+    fixture.var(HANA_URL_PROP, hanaUrl);
   }
 }

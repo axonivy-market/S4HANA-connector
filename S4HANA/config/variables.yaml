@@ -9,6 +9,6 @@ Variables:
 #  myVariable: value
   
    #first part of URI for Rest Service
-   SAP4HANA_CONNECTOR_URL: "odata-mock-server-daring-emu.cfapps.eu10.hana.ondemand.com"
+   SAP4HANA_CONNECTOR_URL: ""
    
     

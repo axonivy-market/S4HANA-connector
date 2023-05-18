@@ -33,10 +33,7 @@
         "templateParams" : {
           "URI" : "in.uriPath"
         },
-        "resultType" : "com.axon.market.s4hana.client.Wrapper9",
-        "properties" : {
-          "jersey.config.client.connectTimeout" : "hana.url.URLBusinessPartnerService.CONNECT_TIMEOUT_VALUE"
-        }
+        "resultType" : "com.axon.market.s4hana.client.Wrapper9"
       },
       "visual" : {
         "at" : { "x" : 352, "y" : 192 }

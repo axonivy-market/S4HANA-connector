@@ -83,7 +83,7 @@ class RestHANAProcessTest {
 				.queryParam("$filter", URLBusinessPartnerService.generateURLFilter(inBusinessPartnerRequest))
 				.queryParam("$expand", TO_BUSINESS_PARTNER_ADDRESS_TO_EMAIL_ADDRESS)
 				.request(MediaType.APPLICATION_JSON).header("sap-client", 201)
-				.property("jersey.config.client.connectTimeout", URLBusinessPartnerService.CONNECT_TIMEOUT_VALUE).get();
+				.get();
 		Wrapper9 res = response.readEntity(Wrapper9.class);
 		assertThat(res).isNotNull();
 		assertThat(res.getD()).isNotNull();
