@@ -5,6 +5,10 @@
   <version>10.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <properties>
+    <variables.yaml.file>../S4HANA/config/variables.yaml</variables.yaml.file>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -23,6 +27,30 @@
                 <descriptor>zip.xml</descriptor>
               </descriptors>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+          	<id>inject.variables.yaml.to.readme</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <skip>${skip-readme}</skip>
+              <target>
+                <copy todir="${project.build.directory}">
+                  <fileset dir="../../" includes="doc/**" />
+                </copy>
+                <copy file="README.md" tofile="${project.build.directory}/README.md" />
+                <loadfile property="variables.yaml" srcFile="${variables.yaml.file}" encoding="UTF-8" />
+                <replace file="${project.build.directory}/README.md" token="@variables.yaml@" value="${variables.yaml}" />
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
