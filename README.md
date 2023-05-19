@@ -1,7 +1,7 @@
-# MY-PRODUCT-NAME
+# S4HANA
 
-[![CI Build](https://github.com/axonivy-market/REPO-NAME/actions/workflows/ci.yml/badge.svg)](https://github.com/axonivy-market/REPO-NAME/actions/workflows/ci.yml)
+[![CI Build](https://github.com/axonivy-market/S4HANA/actions/workflows/ci.yml/badge.svg)](https://github.com/axonivy-market/S4HANA/actions/workflows/ci.yml)
 
-"YOUR SHORT DESCRIPTION GOES HERE"
+"SAP 4 HANA REST"
 
-Read our [documentation](MY-PRODUCT-NAME-product/README.md).
+Read our [documentation](S4HANA-product/README.md).

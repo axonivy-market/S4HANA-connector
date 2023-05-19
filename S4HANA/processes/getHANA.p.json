@@ -1,0 +1,94 @@
+{
+  "format" : "10.0.0",
+  "id" : "181AFD80906674FB",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axon.market.s4.hana.getHANAData"
+  },
+  "elements" : [ {
+      "id" : "f7",
+      "type" : "RestClientCall",
+      "config" : {
+        "path" : "/A_BusinessPartner",
+        "headers" : {
+          "Accept" : "application/json",
+          "sap-client" : "in.businessPartnerRequest.sapClient"
+        },
+        "clientId" : "319c4c35-df80-4f51-b63e-ade0e8f60a9a",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "method" : "GET",
+        "queryParams" : {
+          "$top" : "in.businessPartnerRequest.query.topCount",
+          "$skip" : "in.businessPartnerRequest.query.skipFirstCount",
+          "$filter" : "hana.url.URLBusinessPartnerService.generateURLFilter(in.businessPartnerRequest)",
+          "$inlinecount" : "\"allpages\"",
+          "$orderby" : "in.businessPartnerRequest.query.orderBy",
+          "$select" : "in.businessPartnerRequest.query.select",
+          "$expand" : "in.businessPartnerRequest.query.expand"
+        },
+        "statusErrorCode" : "ivy:error:rest:client",
+        "responseMapping" : {
+          "out.businessPartners" : "result.d.results as List"
+        },
+        "templateParams" : {
+          "URI" : "in.uriPath"
+        },
+        "resultType" : "com.axon.market.s4hana.client.Wrapper9"
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 192 }
+      },
+      "boundaries" : [ {
+          "id" : "f11",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.messages" : "hana.converter.MessageConverter.convertToMessages(error)"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 384, "y" : 224 }
+          },
+          "connect" : { "id" : "f12", "to" : "f9", "via" : [ { "x" : 480, "y" : 224 }, { "x" : 496, "y" : 192 } ] }
+        } ],
+      "connect" : { "id" : "f13", "to" : "f9" }
+    }, {
+      "id" : "f8",
+      "type" : "CallSubStart",
+      "name" : "getBusinessPartners(BusinessPartnerRequest)",
+      "config" : {
+        "callSignature" : "getBusinessPartners",
+        "input" : {
+          "params" : [
+            { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest" }
+          ],
+          "map" : {
+            "out.businessPartnerRequest" : "param.request",
+            "out.uriPath" : "ivy.var.SAP4HANA_CONNECTOR_URL"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "businessPartners", "type" : "java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>" }
+          ],
+          "map" : {
+            "result.businessPartners" : "in.businessPartners"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 192 },
+        "labelOffset" : { "x" : 63, "y" : 37 }
+      },
+      "connect" : { "id" : "f10", "to" : "f7" }
+    }, {
+      "id" : "f9",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 560, "y" : 192 }
+      }
+    } ]
+}
