@@ -6,7 +6,6 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 
 import ch.ivyteam.ivy.environment.AppFixture;
-import ch.ivyteam.ivy.environment.Ivy;
 
 public class SetupHelper {
   public static final String HANA_URL_PROP = "SAP4HANA_CONNECTOR_URL";
@@ -21,6 +20,10 @@ public class SetupHelper {
           props.load(in);
           hanaUrl = (String) props.get(HANA_URL_PROP);
         }
+        else
+        {
+        	hanaUrl = "localhost";
+        }       
       }
     }
     fixture.var(HANA_URL_PROP, hanaUrl);
