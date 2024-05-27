@@ -1,9 +1,10 @@
 # S4HANA
 
-SAP4 HANA REST Connector
+This connector shows an easy way to connect to the SAP S4HANA database. 
 
-I would describe the value of this connector is in its simplicity. The question if the customer should use it depends on the usecases. If a customer decides he needs a simply API with the most basic usecases to access Business Partners data, he can use this connector. 
-If the customer knows he will need more than the standard Business Partner values, and maybe he will use also other OData Rest Services from Microsoft, he should probably implement his own ODATA interface which will cost way more time but will be more powerful.
+The focus here is on the business partner domain. In the example, a connection to the database is established and all business partners are listed together with their email addresses.
+Please note: In the example, a connection to [SAP Demo API](https://api.sap.com/api/BusinessPartner_APIs/tryout) is established, i.e. it is necessary that you first create an account here.
+
 
 ## Demo
 
