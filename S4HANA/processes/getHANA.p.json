@@ -8,6 +8,7 @@
   "elements" : [ {
       "id" : "f7",
       "type" : "RestClientCall",
+      "name" : "Get list of business partners",
       "config" : {
         "path" : "/A_BusinessPartner",
         "headers" : {
@@ -28,12 +29,10 @@
         },
         "statusErrorCode" : "ivy:error:rest:client",
         "responseMapping" : {
-          "out.businessPartners" : "result.d.results as List"
+          "out.businessPartners" : "result.d.results as List",
+          "out.totalCount" : "Integer.parseInt(result.d.count)"
         },
-        "templateParams" : {
-          "URI" : "in.uriPath"
-        },
-        "resultType" : "com.axon.market.s4hana.client.Wrapper9"
+        "resultType" : "com.axon.market.s4hana.client.Wrapper23"
       },
       "visual" : {
         "at" : { "x" : 352, "y" : 192 }
@@ -50,9 +49,9 @@
             }
           },
           "visual" : {
-            "at" : { "x" : 384, "y" : 224 }
+            "at" : { "x" : 408, "y" : 226 }
           },
-          "connect" : { "id" : "f12", "to" : "f9", "via" : [ { "x" : 480, "y" : 224 }, { "x" : 496, "y" : 192 } ] }
+          "connect" : { "id" : "f12", "to" : "f9", "via" : [ { "x" : 560, "y" : 226 } ] }
         } ],
       "connect" : { "id" : "f13", "to" : "f9" }
     }, {
@@ -66,16 +65,17 @@
             { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest" }
           ],
           "map" : {
-            "out.businessPartnerRequest" : "param.request",
-            "out.uriPath" : "ivy.var.SAP4HANA_CONNECTOR_URL"
+            "out.businessPartnerRequest" : "param.request"
           }
         },
         "result" : {
           "params" : [
-            { "name" : "businessPartners", "type" : "java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>" }
+            { "name" : "businessPartners", "type" : "java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>" },
+            { "name" : "totalCount", "type" : "Integer" }
           ],
           "map" : {
-            "result.businessPartners" : "in.businessPartners"
+            "result.businessPartners" : "in.businessPartners",
+            "result.totalCount" : "in.totalCount"
           }
         }
       },

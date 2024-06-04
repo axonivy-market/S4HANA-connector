@@ -11,28 +11,27 @@
       "config" : {
         "output" : {
           "code" : [
-            "import java.util.Arrays;",
             "import com.axon.market.s4hana.client.APIBUSINESSPARTNERAAddressEmailAddressType;",
             "import com.axon.market.s4hana.client.APIBUSINESSPARTNERABPContactToAddressTypeToEmailAddress;",
             "import com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerAddressType;",
             "import com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType;",
-            "int i =0;",
+            "import java.util.Arrays;",
+            "ivy.log.info(\"Total count: {0}\", in.totalCount);",
+            "int i = 0;",
             "for (APIBUSINESSPARTNERABusinessPartnerType bp: in.businessPartners) {",
-            "  ivy.log.info(\"BusinessPartners(\"+i+\"):{0}\",String.join(\",\", Arrays.asList(bp.getBusinessPartnerFullName() , bp.getBusinessPartnerCategory() , bp.getBusinessPartnerGrouping() )));",
+            "  ivy.log.info(\"BusinessPartners(\"+i+\"): {0}\", String.join(\",\", Arrays.asList(bp.getBusinessPartnerFullName(), bp.getBusinessPartnerCategory(), bp.getBusinessPartnerGrouping())));",
             "  for (APIBUSINESSPARTNERABusinessPartnerAddressType add: bp.toBusinessPartnerAddress.results) {",
+            "    ivy.log.info(\"Address City {0}: \", add.cityName);",
+            "    if (add.toEmailAddress.results.isEmpty()) {",
+            "      ivy.log.info(\"Empty email\");",
+            "    }",
             "",
-            "    ivy.log.info(\"  Address {0}\",add.cityName);",
-            "    if (add.toEmailAddress.results.isEmpty()){     ivy.log.info(\"  empty email \");}",
-            "    for (APIBUSINESSPARTNERABPContactToAddressTypeToEmailAddress em: add.toEmailAddress.results) {",
-            " ",
-            "     for (APIBUSINESSPARTNERAAddressEmailAddressType email: em.results) {",
-            "        ivy.log.info(\"    email {0}\",(email.emailAddress));",
-            "      }",
-            "     }",
-            "  ",
+            "    for (APIBUSINESSPARTNERAAddressEmailAddressType em: add.toEmailAddress.results) {",
+            "      ivy.log.info(\"Email {0}\",em.emailAddress);",
+            "    }",
+            "",
             "  }",
             "  i++;",
-            "  ",
             "}"
           ]
         }
@@ -41,15 +40,17 @@
         "at" : { "x" : 400, "y" : 160 },
         "size" : { "width" : 128, "height" : 60 }
       },
-      "connect" : { "id" : "f12", "to" : "f10" }
+      "connect" : { "id" : "f1", "to" : "f0" }
     }, {
       "id" : "f8",
       "type" : "RequestStart",
-      "name" : "getBusinessPartnersWithEmailAndBank.ivp",
+      "name" : "getBusinessPartners.ivp",
       "config" : {
-        "callSignature" : "getBusinessPartnersWithEmailAndBank",
+        "callSignature" : "getBusinessPartners",
         "outLink" : "getBusinessPartnersWithEmailAndBank.ivp",
-        "tags" : "demo"
+        "startName" : "Get a list of business partners",
+        "tags" : "demo",
+        "case" : { }
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 160 },
@@ -65,7 +66,8 @@
         "output" : {
           "map" : {
             "out" : "in",
-            "out.businessPartners" : "result.businessPartners"
+            "out.businessPartners" : "result.businessPartners",
+            "out.totalCount" : "result.totalCount"
           }
         },
         "call" : {
@@ -74,6 +76,7 @@
           ],
           "map" : {
             "param.request.query.expand" : "[\"to_BusinessPartnerAddress/to_EmailAddress\",\"to_BusinessPartnerBank\",\"to_BuPaIdentification\",\"to_BusinessPartnerContact\",\"to_BusinessPartnerRole\",\"to_Customer\",\"to_Supplier\"]",
+            "param.request.query.topCount" : "50",
             "param.request.sapClient" : "200"
           }
         }
@@ -87,7 +90,28 @@
       "id" : "f10",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 528, "y" : 160 }
+        "at" : { "x" : 720, "y" : 160 }
       }
+    }, {
+      "id" : "f0",
+      "type" : "DialogCall",
+      "name" : "BusinessPartnerView",
+      "config" : {
+        "dialogId" : "com.axon.market.s4.hana.demo.BusinessPartnerView",
+        "startMethod" : "start(List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>)",
+        "call" : {
+          "params" : [
+            { "name" : "businessPartners", "type" : "List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>" }
+          ],
+          "map" : {
+            "param.businessPartners" : "in.businessPartners"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 585, "y" : 161 },
+        "size" : { "width" : 146, "height" : 63 }
+      },
+      "connect" : { "id" : "f2", "to" : "f10" }
     } ]
 }

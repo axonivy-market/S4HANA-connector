@@ -3,4 +3,4 @@ com.axon.market.s4.hana #namespace
 businessPartnerRequest hana.bo.BusinessPartnerRequest #field
 businessPartners java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType> #field
 messages List<hana.bo.Message> #field
-uriPath String #field
+totalCount Integer #field

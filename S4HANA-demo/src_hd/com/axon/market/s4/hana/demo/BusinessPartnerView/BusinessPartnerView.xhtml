@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/layouts/frame-10.xhtml">
+		<ui:define name="title">Business Partner View</ui:define>
+		<ui:define name="content">
+
+			<h3>List of Business Partner</h3>
+
+			<h:form id="form">
+				<p:dataTable var="businessPartner" value="#{data.businessPartners}"
+					rows="10" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+					rowsPerPageTemplate="5,10,20">
+
+					<p:column headerText="Business Partner"
+						sortBy="#{businessPartner.businessPartner}">
+						<h:outputText value="#{businessPartner.businessPartner}" />
+					</p:column>
+
+					<p:column headerText="Name"
+						sortBy="#{businessPartner.businessPartnerFullName}">
+						<h:outputText value="#{businessPartner.businessPartnerFullName}" />
+					</p:column>
+
+					<p:column headerText="Grouping"
+						sortBy="#{businessPartner.businessPartnerGrouping}">
+						<h:outputText value="#{businessPartner.businessPartnerGrouping}" />
+					</p:column>
+
+					<p:column headerText="Category"
+						sortBy="#{businessPartner.businessPartnerCategory}">
+						<h:outputText value="#{businessPartner.businessPartnerCategory}" />
+					</p:column>
+
+					<p:column headerText="City">
+						<h:outputText
+							value="#{empty businessPartner.toBusinessPartnerAddress.results ? '' : businessPartner.toBusinessPartnerAddress.results.get(0).cityName}" />
+					</p:column>
+
+				</p:dataTable>
+				<br />
+				<div class="command-btns">
+					<p:commandButton id="proceed" actionListener="#{logic.close}"
+						value="Close" update="form" icon="pi pi-check" />
+				</div>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>
