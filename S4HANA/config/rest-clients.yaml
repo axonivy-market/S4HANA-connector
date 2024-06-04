@@ -11,5 +11,5 @@ RestClients:
       username: ${ivy.var.s4HanaConnector.username}
       password: ${ivy.var.s4HanaConnector.password}
     OpenAPI:
-      SpecUrl: file:///C:/Users/phhung/Downloads/API_BUSINESS_PARTNER%20(1).json
+      SpecUrl: file:///C:/Users/hb/git/S4HANA/S4HANA/lib/generated/rest/openapi.json
       Namespace: com.axon.market.s4hana.client
