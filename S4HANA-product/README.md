@@ -12,7 +12,7 @@ Demo tries to connect to SAP and gets list of business partners
 1. Start Process to get a list of business partners
 ![get-a-list-of-business-partners](images/get-a-list-of-business-partners.png)
 2. List of business partners are displayed in the table
-![list-of-business-partners](images/list-of-business-partners)
+![list-of-business-partners](images/list-of-business-partners.png)
 
 ## Setup
 
