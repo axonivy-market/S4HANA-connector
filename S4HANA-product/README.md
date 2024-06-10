@@ -1,6 +1,6 @@
 # SAP S/4HANA
 
-The SAP S4/HANA connector easily connects to a SAP S/4HANA database. This connector:
+This connector easily connects the Axon Ivy Engine to a SAP S/4HANA database:
 
 - Focuses on the business partner domain
 - Establishes a connection to its database to show all business partners together with their email addresses
