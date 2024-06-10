@@ -18,7 +18,7 @@ This demo example connects to the database of all business partners in SAP S/4HA
 
 ## Setup
 
-1.Set up a test environment for SAP S/4HANA Business Partner API to get an account containing the host(baseUrl), username, and password.
+1. Set up a test environment for SAP S/4HANA Business Partner API to get an account containing the host(baseUrl), username, and password.
 
 2. Set the global variables to SAP's needs. You may need to add a certificate to connect to SAP via SSL.
 Add the following `Variables` to your `variables.yaml`:
