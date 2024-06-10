@@ -1,6 +1,9 @@
 # == Variables ==
 Variables:
-   #first part of URI for Rest Service
-   SAP4HANA_CONNECTOR_URL: ""
-   
-    
+  s4HanaConnector:
+    # The first part of URI for Rest Service. E.g. https://${your base Url}/sap/opu/odata/SAP/API_BUSINESS_PARTNER
+    baseUrl: ""
+    # The username for Rest Service Authentication
+    username: ""
+    # The password for Rest Service Authentication
+    password: ""
