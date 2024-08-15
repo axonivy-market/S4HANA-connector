@@ -1,11 +1,11 @@
 # SAP S/4HANA
 
-This connector easily connects the Axon Ivy Engine to a SAP S/4HANA database:
+This connector easily connects the Axon Ivy Engine with an SAP S/4HANA database - with a focus on the business partner area.
 
-- Focuses on the business partner domain
-- Establishes a connection to its database to show all business partners together with their email addresses
-- Needs a tryout account for the [SAP Demo API](https://api.sap.com/api/API_BUSINESS_PARTNER/tryout)
-- Supports you with a demo implementation to reduce your integration effort
+This connector:
+- connects to the database to display all business partners and their email addresses
+- requires a test account for the SAP Demo API
+- supports you with a demo implementation to reduce your integration effort
 
 ## Demo
 
