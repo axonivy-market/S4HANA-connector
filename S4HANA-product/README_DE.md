@@ -1,11 +1,11 @@
 # SAP S/4HANA
 
-This connector easily connects the Axon Ivy Engine with an SAP S/4HANA database - with a focus on the business partner area.
+Dieser Konnektor verbindet die Axon Ivy Engine ohne viel Aufwand mit einer SAP S/4HANA-Datenbank - mit Fokus auf den Bereich der Business Partner.
 
-This connector:
-- connects to the database to display all business partners and their email addresses
-- requires a test account for the SAP Demo API
-- supports you with a demo implementation to reduce your integration effort
+Dieser Konnektor:
+- stellt eine Verbindung zur Datenbank her, um alle Business Partner und ihre E-Mail-Adressen anzuzeigen
+- benötigt ein Testkonto für die SAP Demo API
+- unterstützt dich mit einer Demo-Implementierung, um deinen Integrationsaufwand zu reduzieren
 
 ## Demo
 
@@ -32,4 +32,5 @@ and replace the values with your given setup.
 ```
 @variables.yaml@
 ```
+
 
