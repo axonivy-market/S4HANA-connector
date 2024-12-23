@@ -5,7 +5,6 @@
   "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "businessPartners",
-    "type" : "List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>"
   } ]
 }

@@ -7,6 +7,7 @@
 
   <properties>
     <variables.yaml.file>../S4HANA/config/variables.yaml</variables.yaml.file>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <build>
