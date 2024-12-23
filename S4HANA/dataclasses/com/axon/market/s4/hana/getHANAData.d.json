@@ -1,0 +1,19 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "getHANAData",
+  "namespace" : "com.axon.market.s4.hana",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "businessPartnerRequest",
+    "type" : "hana.bo.BusinessPartnerRequest"
+  }, {
+    "name" : "businessPartners",
+    "type" : "java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>"
+  }, {
+    "name" : "messages",
+    "type" : "List<hana.bo.Message>"
+  }, {
+    "name" : "totalCount",
+    "type" : "Integer"
+  } ]
+}
