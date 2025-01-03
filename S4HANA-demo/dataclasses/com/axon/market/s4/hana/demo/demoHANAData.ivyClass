@@ -1,4 +1,0 @@
-demoHANAData #class
-com.axon.market.s4.hana.demo #namespace
-businessPartners java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType> #field
-totalCount Integer #field

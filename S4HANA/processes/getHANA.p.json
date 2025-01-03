@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "181AFD80906674FB",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -10,29 +10,32 @@
       "type" : "RestClientCall",
       "name" : "Get list of business partners",
       "config" : {
-        "path" : "/A_BusinessPartner",
-        "headers" : {
-          "Accept" : "application/json",
-          "sap-client" : "in.businessPartnerRequest.sapClient"
+        "target" : {
+          "clientId" : "319c4c35-df80-4f51-b63e-ade0e8f60a9a",
+          "path" : "/A_BusinessPartner",
+          "queryParams" : {
+            "$top" : "in.businessPartnerRequest.query.topCount",
+            "$skip" : "in.businessPartnerRequest.query.skipFirstCount",
+            "$filter" : "hana.url.URLBusinessPartnerService.generateURLFilter(in.businessPartnerRequest)",
+            "$inlinecount" : "\"allpages\"",
+            "$orderby" : "in.businessPartnerRequest.query.orderBy",
+            "$select" : "in.businessPartnerRequest.query.select",
+            "$expand" : "in.businessPartnerRequest.query.expand"
+          },
+          "headers" : {
+            "Accept" : "application/json",
+            "sap-client" : "in.businessPartnerRequest.sapClient"
+          }
         },
-        "clientId" : "319c4c35-df80-4f51-b63e-ade0e8f60a9a",
-        "clientErrorCode" : "ivy:error:rest:client",
-        "method" : "GET",
-        "queryParams" : {
-          "$top" : "in.businessPartnerRequest.query.topCount",
-          "$skip" : "in.businessPartnerRequest.query.skipFirstCount",
-          "$filter" : "hana.url.URLBusinessPartnerService.generateURLFilter(in.businessPartnerRequest)",
-          "$inlinecount" : "\"allpages\"",
-          "$orderby" : "in.businessPartnerRequest.query.orderBy",
-          "$select" : "in.businessPartnerRequest.query.select",
-          "$expand" : "in.businessPartnerRequest.query.expand"
-        },
-        "statusErrorCode" : "ivy:error:rest:client",
-        "responseMapping" : {
-          "out.businessPartners" : "result.d.results as List",
-          "out.totalCount" : "Integer.parseInt(result.d.count)"
-        },
-        "resultType" : "com.axon.market.s4hana.client.Wrapper23"
+        "response" : {
+          "entity" : {
+            "type" : "com.axon.market.s4hana.client.Wrapper23",
+            "map" : {
+              "out.businessPartners" : "result.d.results as List",
+              "out.totalCount" : "Integer.parseInt(result.d.count)"
+            }
+          }
+        }
       },
       "visual" : {
         "at" : { "x" : 352, "y" : 192 }
@@ -51,18 +54,22 @@
           "visual" : {
             "at" : { "x" : 408, "y" : 226 }
           },
-          "connect" : { "id" : "f12", "to" : "f9", "via" : [ { "x" : 560, "y" : 226 } ] }
+          "connect" : [
+            { "id" : "f12", "to" : "f9", "via" : [ { "x" : 560, "y" : 226 } ] }
+          ]
         } ],
-      "connect" : { "id" : "f13", "to" : "f9" }
+      "connect" : [
+        { "id" : "f13", "to" : "f9" }
+      ]
     }, {
       "id" : "f8",
       "type" : "CallSubStart",
       "name" : "getBusinessPartners(BusinessPartnerRequest)",
       "config" : {
-        "callSignature" : "getBusinessPartners",
+        "signature" : "getBusinessPartners",
         "input" : {
           "params" : [
-            { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest" }
+            { "name" : "request", "type" : "hana.bo.BusinessPartnerRequest", "desc" : "" }
           ],
           "map" : {
             "out.businessPartnerRequest" : "param.request"
@@ -70,8 +77,8 @@
         },
         "result" : {
           "params" : [
-            { "name" : "businessPartners", "type" : "java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>" },
-            { "name" : "totalCount", "type" : "Integer" }
+            { "name" : "businessPartners", "type" : "java.util.List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType>", "desc" : "" },
+            { "name" : "totalCount", "type" : "Integer", "desc" : "" }
           ],
           "map" : {
             "result.businessPartners" : "in.businessPartners",
@@ -83,7 +90,9 @@
         "at" : { "x" : 96, "y" : 192 },
         "labelOffset" : { "x" : 63, "y" : 37 }
       },
-      "connect" : { "id" : "f10", "to" : "f7" }
+      "connect" : [
+        { "id" : "f10", "to" : "f7" }
+      ]
     }, {
       "id" : "f9",
       "type" : "CallSubEnd",

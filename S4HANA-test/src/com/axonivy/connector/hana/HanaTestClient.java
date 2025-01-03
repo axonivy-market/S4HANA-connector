@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.microsoft.auth.OAuth2Feature;
 
 import ch.ivyteam.ivy.application.IApplication;
 import ch.ivyteam.ivy.rest.client.RestClient;
+import ch.ivyteam.ivy.rest.client.RestClientFeature;
 import ch.ivyteam.ivy.rest.client.RestClients;
 import ch.ivyteam.ivy.rest.client.security.CsrfHeaderFeature;
 
@@ -39,10 +42,11 @@ public class HanaTestClient {
 				.toRestClient();
 
 		var features = new ArrayList<>(hanaMock.features());
-		if (!features.contains(CsrfHeaderFeature.class.getName())) {
-			features.add(CsrfHeaderFeature.class.getName());
+		if (features.stream().map(RestClientFeature::clazz)
+				.noneMatch(clazz -> StringUtils.contains(clazz, CsrfHeaderFeature.class.getName()))) {
+			features.add(new RestClientFeature(CsrfHeaderFeature.class.getName()));
 		}
-		features.remove(OAuth2Feature.class.getName());
+		features.removeIf(feature -> StringUtils.contains(feature.clazz(), OAuth2Feature.class.getName()));
 		hanaMock = new RestClient(hanaMock.uri(), hanaMock.name(),
 				hanaMock.uniqueId(), hanaMock.description(),
 				features, hanaMock.properties(), hanaMock.metas());

@@ -1,4 +1,0 @@
-BusinessPartnerViewData #class
-com.axon.market.s4.hana.demo.BusinessPartnerView #namespace
-businessPartners List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType> #field
-businessPartners PERSISTENT #fieldModifier

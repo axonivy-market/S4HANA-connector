@@ -2,11 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.axonivy.connector.s4hana</groupId>
   <artifactId>s4-hana-product</artifactId>
-  <version>10.0.23-SNAPSHOT</version>
+  <version>12.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
     <variables.yaml.file>../S4HANA/config/variables.yaml</variables.yaml.file>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <build>
