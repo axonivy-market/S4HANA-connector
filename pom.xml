@@ -15,7 +15,7 @@
     <module>${project.name}-demo-app</module>
   </modules>
   <scm>
-    <developerConnection>scm:git:https://github.com/axonivy-market/${project.name}-connector.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/axonivy-market/S4HANA-connector.git</developerConnection>
   </scm>
   <build>
     <pluginManagement>
