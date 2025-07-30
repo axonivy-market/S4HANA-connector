@@ -6,5 +6,5 @@ public class S4HanaTestConstants {
 	public static final String BASE_URL = "baseUrl";
 	public static final String API_KEY = "apiKey";
 	public static final String END_TO_END_TESTING_ENVIRONMENT_KEY = "testEnvironment";
-	public static final String END_TO_END_TESTING_ENVIRONMENT_VALUE = "E2E Testing";
+	public static final String END_TO_END_TESTING_ENVIRONMENT_VALUE = "E2E";
 }

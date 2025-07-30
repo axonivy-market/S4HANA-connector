@@ -13,4 +13,4 @@ jobs:
   build:
     uses: axonivy-market/github-workflows/.github/workflows/ci.yml@v6
     secrets:
-      mvnArgs: -Ds4hana.baseUrl=${{secrets.BASE_URL}} -Ds4hana.apiKey=${{secrets.API_KEY}} "-DtestEnvironment=${{ secrets.END_2_END_TESTING_ENV }}"
+      mvnArgs: -Ds4hana.baseUrl=${{secrets.BASE_URL}} -Ds4hana.apiKey=${{secrets.API_KEY}} -DtestEnvironment=E2E
