@@ -17,8 +17,12 @@ public class MultiEnvironmentContextProvider implements TestTemplateInvocationCo
 
 	@Override
 	public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(ExtensionContext context) {
-		return Stream.of(new TestEnironmentInvocationContext(S4HanaTestConstants.REAL_CALL_CONTEXT_DISPLAY_NAME),
-				new TestEnironmentInvocationContext(S4HanaTestConstants.MOCK_SERVER_CONTEXT_DISPLAY_NAME));
+		String testEnv = System.getProperty(S4HanaTestConstants.END_TO_END_TESTING_ENVIRONMENT_KEY);
+		return switch (testEnv) {
+		case S4HanaTestConstants.END_TO_END_TESTING_ENVIRONMENT_VALUE ->
+			Stream.of(new TestEnvironmentInvocationContext(S4HanaTestConstants.REAL_CALL_CONTEXT_DISPLAY_NAME));
+		default ->
+			Stream.of(new TestEnvironmentInvocationContext(S4HanaTestConstants.MOCK_SERVER_CONTEXT_DISPLAY_NAME));
+		};
 	}
-
 }
