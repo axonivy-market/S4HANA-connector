@@ -1,10 +1,14 @@
 package com.axonivy.connector.hana.integration.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static com.axonivy.utils.e2etest.enums.E2EEnvironment.REAL_SERVER;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +17,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.axon.market.s4.hana.getHANAData;
+import com.axonivy.connector.hana.HanaTestClient;
 import com.axonivy.connector.hana.integration.test.constants.S4HanaTestConstants;
-import com.axonivy.connector.hana.integration.test.context.MultiEnvironmentContextProvider;
+import com.axonivy.connector.hana.integration.test.helper.SetupHelper;
+import com.axonivy.utils.e2etest.context.MultiEnvironmentContextProvider;
+import com.axonivy.utils.e2etest.utils.E2ETestUtils;
 
 import ch.ivyteam.ivy.application.IApplication;
 import ch.ivyteam.ivy.bpm.engine.client.BpmClient;
@@ -22,6 +29,8 @@ import ch.ivyteam.ivy.bpm.engine.client.ExecutionResult;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmElement;
 import ch.ivyteam.ivy.bpm.exec.client.IvyProcessTest;
 import ch.ivyteam.ivy.environment.AppFixture;
+import ch.ivyteam.ivy.environment.Ivy;
+import ch.ivyteam.ivy.rest.client.RestClient;
 import ch.ivyteam.ivy.rest.client.RestClients;
 import ch.ivyteam.ivy.security.ISession;
 import hana.bo.BusinessPartnerRequest;
@@ -29,13 +38,24 @@ import hana.bo.BusinessPartnerRequest;
 @IvyProcessTest(enableWebServer = true)
 @ExtendWith(MultiEnvironmentContextProvider.class)
 class RestHANAProcessTest {
+	public static final UUID HANA_CLIENT_ID = UUID.fromString("319c4c35-df80-4f51-b63e-ade0e8f60a9a");
+	public static final String REST_CLIENT_FEATURE =
+			"RestClients.HANA_BUSINESS_PARTNER_ (Business Partner (A2X)).Features";
+	public static final List<String> CONFIG_FEATURES = List.of("ch.ivyteam.ivy.rest.client.mapper.JsonFeature",
+			"com.axonivy.connector.hana.integration.test.auth.S4HanaAuthFeature");
+	private static final String SELECT_FIELDS_BUSINESS_PARTNER =
+			"BusinessPartnerCategory,BusinessPartnerFullName,BusinessPartner";
+	private static final String TO_BUSINESS_PARTNER_ADDRESS_TO_EMAIL_ADDRESS =
+			"to_BusinessPartnerAddress/to_EmailAddress";
 
-	private static final String SELECT_FIELDS_BUSINESS_PARTNER = "BusinessPartnerCategory,BusinessPartnerFullName,BusinessPartner";
-	private static final String TO_BUSINESS_PARTNER_ADDRESS_TO_EMAIL_ADDRESS = "to_BusinessPartnerAddress/to_EmailAddress";
+	private static final AtomicReference<RestClient> ORIGINAL = new AtomicReference<>();
+	private boolean isRealTest;
 
 	@BeforeEach
 	void beforeEach(ExtensionContext context, AppFixture fixture, IApplication app) throws IOException {
-		S4HanaTestUtils.setUpConfigForContext(context.getDisplayName(), fixture, app);
+		isRealTest = context.getDisplayName().equals(REAL_SERVER.getDisplayName());
+		E2ETestUtils.determineConfigForContext(context.getDisplayName(), runRealEnv(fixture, app),
+				runMockEnv(fixture, app));
 	}
 
 	@AfterEach
@@ -61,7 +81,7 @@ class RestHANAProcessTest {
 		getHANAData jsonData = result.data().last();
 		assertThat(jsonData).isNotNull();
 		List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType> bps = jsonData.getBusinessPartners();
-		if (context.getDisplayName().equals(S4HanaTestConstants.REAL_CALL_CONTEXT_DISPLAY_NAME)) {
+		if (isRealTest) {
 			assertThat(bps.size()).isGreaterThan(1);
 		} else {
 			for (var bp : bps) {
@@ -87,7 +107,7 @@ class RestHANAProcessTest {
 		getHANAData jsonData = result.data().last();
 		assertThat(jsonData).isNotNull();
 		List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType> bps = jsonData.getBusinessPartners();
-		if (context.getDisplayName().equals(S4HanaTestConstants.REAL_CALL_CONTEXT_DISPLAY_NAME)) {
+		if (isRealTest) {
 			assertThat(bps.size()).isGreaterThan(1);
 		} else {
 			assertThat(bps).isNotNull();
@@ -116,7 +136,7 @@ class RestHANAProcessTest {
 		assertThat(jsonData).isNotNull();
 		List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType> bps = jsonData.getBusinessPartners();
 		assertThat(bps).isNotNull();
-		if (context.getDisplayName().equals(S4HanaTestConstants.REAL_CALL_CONTEXT_DISPLAY_NAME)) {
+		if (isRealTest) {
 			assertThat(bps.size()).isGreaterThan(1);
 		} else {
 			for (var bp : bps) {
@@ -155,7 +175,7 @@ class RestHANAProcessTest {
 		assertThat(jsonData).isNotNull();
 		List<com.axon.market.s4hana.client.APIBUSINESSPARTNERABusinessPartnerType> bps = jsonData.getBusinessPartners();
 		assertThat(bps).isNotNull();
-		if (context.getDisplayName().equals(S4HanaTestConstants.REAL_CALL_CONTEXT_DISPLAY_NAME)) {
+		if (isRealTest) {
 			assertThat(bps.size()).isEqualTo(0);
 		} else {
 			for (var bp : bps) {
@@ -177,4 +197,36 @@ class RestHANAProcessTest {
 			}
 		}
 	}
+
+	private Runnable runRealEnv(AppFixture fixture, IApplication app) {
+		return () -> {
+			fixture.config(REST_CLIENT_FEATURE, CONFIG_FEATURES);
+			RestClients clients = RestClients.of(app);
+			RestClient hanaClient = clients.find(HANA_CLIENT_ID);
+			if (ORIGINAL.get() == null) {
+				ORIGINAL.set(hanaClient);
+			}
+			String baseUrl = System.getProperty(S4HanaTestConstants.BASE_URL);
+			var hanaMock = hanaClient.toBuilder().uri(baseUrl).toRestClient();
+			var features = new ArrayList<>(hanaMock.features());
+			hanaMock = new RestClient(hanaMock.uri(), hanaMock.name(), hanaMock.uniqueId(), hanaMock.description(), features,
+					hanaMock.properties(), hanaMock.metas());
+			clients.set(hanaMock);
+		};
+	}
+
+	private Runnable runMockEnv(AppFixture fixture, IApplication app) {
+		return () -> {
+			try {
+				SetupHelper.setup(fixture);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String url = Ivy.var().get(SetupHelper.HANA_URL_PROP);
+			if (url.contains("localhost")) {
+				HanaTestClient.mockForApp(app);
+			}
+		};
+	}
+
 }
