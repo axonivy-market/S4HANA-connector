@@ -20,7 +20,7 @@ in SAP S/4HANA her.
 2. Eine Liste der Geschäftspartner wird in der Tabelle angezeigt!
    [list-of-business-partners](images/list-of-business-partners.png)
 
-## Einrichtung
+## Setup
 
 1. Richten Sie eine Testumgebung für die SAP S/4HANA Business Partner API ein,
    um ein Konto mit Host (baseUrl), Benutzername und Passwort zu erhalten.
