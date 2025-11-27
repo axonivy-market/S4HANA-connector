@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 public class URLFilterGeneration {
@@ -49,7 +48,7 @@ public class URLFilterGeneration {
 	}
 	
 	public URLFilterGeneration addComparison(String comparisonKey, String comparisonValue, URLComparisonOperator comparisonOperator) {
-		if (CollectionUtils.isEmpty(comparisons)) {
+		if (comparisons == null || comparisons.isEmpty()) {
 			comparisons = new ArrayList<>();
 		}
 		if (StringUtils.isNotBlank(comparisonKey) && comparisonOperator != null) {
@@ -60,7 +59,7 @@ public class URLFilterGeneration {
 	}
 
 	public URLFilterGeneration addComparisonSubStringOf(String comparisonKey, String comparisonValue, URLComparisonOperator comparisonOperator, URLComparisonOperator comparisonOperator2, String comparisonValue2) {
-		if (CollectionUtils.isEmpty(comparisons)) {
+		if (comparisons == null || comparisons.isEmpty()) {
 			comparisons = new ArrayList<>();
 		}
 		if (StringUtils.isNotBlank(comparisonKey) && comparisonOperator != null && StringUtils.isNotBlank(comparisonValue2) && comparisonOperator2 != null) {
@@ -72,7 +71,7 @@ public class URLFilterGeneration {
 
 	public String generateFilter() {
 		StringBuilder filter = new StringBuilder(StringUtils.EMPTY);
-		if (CollectionUtils.isEmpty(comparisons)) {
+		if (comparisons == null || comparisons.isEmpty()) {
 			return filter.toString();
 		}
 		filter.append(OPENING_PARENTHESIS);
