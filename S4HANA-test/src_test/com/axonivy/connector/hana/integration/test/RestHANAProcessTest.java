@@ -55,7 +55,7 @@ class RestHANAProcessTest {
 	void beforeEach(ExtensionContext context, AppFixture fixture, IApplication app) throws IOException {
 		isRealTest = context.getDisplayName().equals(REAL_SERVER.getDisplayName());
 		E2ETestUtils.determineConfigForContext(context.getDisplayName(), runRealEnv(fixture, app),
-				runMockEnv(fixture, app));
+				runMockEnv(fixture));
 	}
 
 	@AfterEach
@@ -215,7 +215,7 @@ class RestHANAProcessTest {
 		};
 	}
 
-	private Runnable runMockEnv(AppFixture fixture, IApplication app) {
+	private Runnable runMockEnv(AppFixture fixture) {
 		return () -> {
 			try {
 				SetupHelper.setup(fixture);
@@ -224,7 +224,7 @@ class RestHANAProcessTest {
 			}
 			String url = Ivy.var().get(SetupHelper.HANA_URL_PROP);
 			if (url.contains("localhost")) {
-				HanaTestClient.mockForApp(app);
+				HanaTestClient.mock(fixture);
 			}
 		};
 	}
