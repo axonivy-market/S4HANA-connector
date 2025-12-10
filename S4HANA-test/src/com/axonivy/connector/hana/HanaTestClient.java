@@ -1,56 +1,22 @@
 package com.axonivy.connector.hana;
 
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.microsoft.auth.OAuth2Feature;
-
-import ch.ivyteam.ivy.application.IApplication;
-import ch.ivyteam.ivy.rest.client.RestClient;
-import ch.ivyteam.ivy.rest.client.RestClientFeature;
-import ch.ivyteam.ivy.rest.client.RestClients;
+import java.util.List;
+import ch.ivyteam.ivy.environment.AppFixture;
+import ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature;
+import ch.ivyteam.ivy.rest.client.mapper.JsonFeature;
 import ch.ivyteam.ivy.rest.client.security.CsrfHeaderFeature;
 
 public class HanaTestClient {
-	public static final UUID HANA_CLIENT_ID = UUID.fromString("319c4c35-df80-4f51-b63e-ade0e8f60a9a");
-
-	private static final AtomicReference<RestClient> ORIGINAL = new AtomicReference<>();
-
-	public static void resetForApp(IApplication app) {
-		RestClient client = ORIGINAL.get();
-		if (client != null) {
-			RestClients.of(app).set(client);
-			ORIGINAL.set(null);
-		}
-	}
-
-	public static void mockForApp(IApplication app) {
-		RestClients clients = RestClients.of(app);
-		RestClient hanaClient = clients.find(HANA_CLIENT_ID);
-		if (ORIGINAL.get() == null) {
-			ORIGINAL.set(hanaClient);
-		}
-
-		var hanaMock = hanaClient.toBuilder().uri(HanaServiceMock.URI)
-				.feature(CsrfHeaderFeature.class.getName())
-				.property("AUTH.baseUri", HanaAuthMock.URI)
-				.property("AUTH.secretKey", "1")
-				.property("scope", "user.read calendars.read")
-				.toRestClient();
-
-		var features = new ArrayList<>(hanaMock.features());
-		if (features.stream().map(RestClientFeature::clazz)
-				.noneMatch(clazz -> StringUtils.contains(clazz, CsrfHeaderFeature.class.getName()))) {
-			features.add(new RestClientFeature(CsrfHeaderFeature.class.getName()));
-		}
-		features.removeIf(feature -> StringUtils.contains(feature.clazz(), OAuth2Feature.class.getName()));
-		hanaMock = new RestClient(hanaMock.uri(), hanaMock.name(),
-				hanaMock.uniqueId(), hanaMock.description(),
-				features, hanaMock.properties(), hanaMock.metas());
-
-		clients.set(hanaMock);
+	public static void mock(AppFixture fixture) {
+		fixture.config("RestClients.'HANA_BUSINESS_PARTNER_ (Business Partner (A2X))'.Properties.AUTH.baseUri",
+				HanaAuthMock.URI);
+		fixture.config("RestClients.'HANA_BUSINESS_PARTNER_ (Business Partner (A2X))'.Properties.AUTH.secretKey", "1");
+		fixture.config("RestClients.'HANA_BUSINESS_PARTNER_ (Business Partner (A2X))'.Properties.scope",
+				"user.read calendars.read");
+		fixture.config("RestClients.'HANA_BUSINESS_PARTNER_ (Business Partner (A2X))'.Properties.scope",
+				"user.read calendars.read");
+		fixture.config("RestClients.'HANA_BUSINESS_PARTNER_ (Business Partner (A2X))'.Features",
+				List.of(CsrfHeaderFeature.class.getName(), JsonFeature.class.getName(),
+						HttpBasicAuthenticationFeature.class.getName()));
 	}
 }
