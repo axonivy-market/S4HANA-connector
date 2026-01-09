@@ -7,14 +7,14 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>${project.name}</module>
-    <module>${project.name}-demo</module>
-    <module>${project.name}-test</module>
-    <module>${project.name}-product</module>
+    <module>S4HANA-connector</module>
+    <module>S4HANA-connector-demo</module>
+    <module>S4HANA-connector-test</module>
+    <module>S4HANA-connector-product</module>
   </modules>
 
   <scm>
-    <developerConnection>scm:git:https://github.com/axonivy-market/${project.name}-connector.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/axonivy-market/S4HANA-connector-connector.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
