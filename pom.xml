@@ -7,10 +7,10 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>S4HANA-connector</module>
-    <module>S4HANA-connector-demo</module>
-    <module>S4HANA-connector-test</module>
-    <module>S4HANA-connector-product</module>
+    <module>s4-hana-connector</module>
+    <module>s4-hana-connector-demo</module>
+    <module>s4-hana-connector-test</module>
+    <module>s4-hana-connector-product</module>
   </modules>
 
   <scm>
