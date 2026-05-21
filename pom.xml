@@ -14,7 +14,7 @@
   </modules>
 
   <scm>
-    <developerConnection>scm:git:https://github.com/axonivy-market/S4HANA-connector-connector.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/axonivy-market/S4HANA-connector.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
