@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.axonivy.connector.s4hana</groupId>
   <artifactId>s4-hana-connector</artifactId>
-  <version>13.2.0</version>
+  <version>13.2.1-SNAPSHOT</version>
   <packaging>iar</packaging>
   <dependencies>
     <dependency>
