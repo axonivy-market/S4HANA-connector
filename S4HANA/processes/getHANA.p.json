@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/process.json",
   "id" : "181AFD80906674FB",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -11,7 +11,7 @@
       "name" : "Get list of business partners",
       "config" : {
         "target" : {
-          "clientId" : "319c4c35-df80-4f51-b63e-ade0e8f60a9a",
+          "clientId" : "HANA_BUSINESS_PARTNER_-Business-Partner-A2X",
           "path" : "/A_BusinessPartner",
           "queryParams" : {
             "$top" : "in.businessPartnerRequest.query.topCount",
