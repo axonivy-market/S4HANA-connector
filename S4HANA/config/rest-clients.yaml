@@ -1,11 +1,12 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/rest-clients-1.json
 RestClients:
   #This service enables you to create, display, update, and delete data related to Business Partner, Supplier, and Customer with the data provided in a payload, in an API call. This service also supports create deep entity operation and batch processing.
-  HANA_BUSINESS_PARTNER_ (Business Partner (A2X)):
-    UUID: 319c4c35-df80-4f51-b63e-ade0e8f60a9a
+  HANA_BUSINESS_PARTNER_-Business-Partner-A2X:
+    Name: HANA_BUSINESS_PARTNER_ (Business Partner (A2X))
     Url: https://${ivy.var.s4HanaConnector.baseUrl}/sap/opu/odata/SAP/API_BUSINESS_PARTNER
     Features:
-    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
-    - ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature
+      - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
+      - ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature
     Properties:
       JSON.Deserialization.FAIL_ON_UNKNOWN_PROPERTIES: 'false'
       username: ${ivy.var.s4HanaConnector.username}
@@ -13,3 +14,4 @@ RestClients:
     OpenAPI:
       SpecUrl: file:///C:/Users/hb/git/S4HANA/S4HANA/lib/generated/rest/openapi.json
       Namespace: com.axon.market.s4hana.client
+    LegacyUUID: 319c4c35-df80-4f51-b63e-ade0e8f60a9a
