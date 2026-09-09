@@ -1,7 +1,7 @@
 package hana.utils;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status.Family;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status.Family;
 
 public class HttpStatusUtils {
 	

@@ -25,7 +25,7 @@ import java.util.List;
  * CollectionOfASupplierWithHoldingTaxType
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-06-03T08:45:35.933090900+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-06-03T08:45:35.933090900+07:00[Asia/Saigon]")
 public class CollectionOfASupplierWithHoldingTaxType {
   @JsonProperty("__count")
   private String _count = null;

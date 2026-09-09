@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * ACustomerUnloadingPointType
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-06-03T08:45:35.933090900+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-06-03T08:45:35.933090900+07:00[Asia/Saigon]")
 public class ACustomerUnloadingPointType {
   @JsonProperty("d")
   private APIBUSINESSPARTNERACustomerUnloadingPointType d = null;

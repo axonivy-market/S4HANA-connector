@@ -2,8 +2,8 @@ package com.axonivy.connector.hana.integration.test.auth;
 
 import java.io.IOException;
 
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
+import jakarta.ws.rs.client.ClientRequestContext;
+import jakarta.ws.rs.client.ClientRequestFilter;
 
 import com.axonivy.connector.hana.integration.test.constants.S4HanaTestConstants;
 
