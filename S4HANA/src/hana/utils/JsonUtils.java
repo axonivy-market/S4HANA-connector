@@ -1,37 +1,33 @@
 package hana.utils;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import ch.ivyteam.ivy.environment.Ivy;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 public class JsonUtils {
 
-	private static final ObjectMapper OM = new ObjectMapper();
-	static {
-		// serialization features
-		OM.disable(SerializationFeature.INDENT_OUTPUT);
-		OM.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		OM.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		OM.setSerializationInclusion(Include.NON_NULL);
-
-		// deserialization features
-		OM.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-		OM.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-	}
+	private static final ObjectMapper OM = JsonMapper.builder()
+			.disable(SerializationFeature.INDENT_OUTPUT)
+			.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+			.disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+			.changeDefaultPropertyInclusion(inclusion -> inclusion.withValueInclusion(Include.NON_NULL))
+			.changeDefaultPropertyInclusion(inclusion -> inclusion.withContentInclusion(Include.NON_NULL))
+			.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+			.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+			.build();
 
 	private JsonUtils() {}
 
-	public static String writeValueAsString(Object o) throws JsonProcessingException {
+	public static String writeValueAsString(Object o) throws JacksonException {
 		return OM.writeValueAsString(o);
 	}	
 	
@@ -39,11 +35,7 @@ public class JsonUtils {
 		T result = null;
 		try {
 			result = OM.readValue(json, type);
-		} catch (JsonParseException e) {
-			Ivy.log().error(e);
-		} catch (JsonMappingException e) {
-			Ivy.log().error(e);
-		} catch (IOException e) {
+		} catch (JacksonException e) {
 			Ivy.log().error(e);
 		}
 
@@ -56,11 +48,7 @@ public class JsonUtils {
 		try {
 			results = OM.readValue(json, new TypeReference<List<T>>() {
 			});
-		} catch (JsonParseException e) {
-			Ivy.log().error(e);
-		} catch (JsonMappingException e) {
-			Ivy.log().error(e);
-		} catch (IOException e) {
+		} catch (JacksonException e) {
 			Ivy.log().error(e);
 		}
 		return results;
